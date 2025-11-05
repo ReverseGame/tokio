@@ -1373,7 +1373,7 @@ impl TcpStream {
     // `poll_read_ready` or `poll_write_ready` methods with the `try_read` or
     // `try_write` methods.
 
-    pub(crate) fn poll_read_priv(
+    pub fn poll_read_priv(
         &self,
         cx: &mut Context<'_>,
         buf: &mut ReadBuf<'_>,
@@ -1382,7 +1382,7 @@ impl TcpStream {
         unsafe { self.io.poll_read(cx, buf) }
     }
 
-    pub(super) fn poll_write_priv(
+    pub fn poll_write_priv(
         &self,
         cx: &mut Context<'_>,
         buf: &[u8],
