@@ -1117,7 +1117,7 @@ impl TcpStream {
     /// It does this to abstract away OS specific logic and to prevent a race condition between
     /// this function call and the OS closing this socket because of external events (e.g. TCP reset).
     /// See <https://github.com/tokio-rs/tokio/issues/4665> for more information.
-    pub fn shutdown_std(&self, how: Shutdown) -> io::Result<()> {
+    pub(super) fn shutdown_std(&self, how: Shutdown) -> io::Result<()> {
         match self.io.shutdown(how) {
             Err(err) if err.kind() == std::io::ErrorKind::NotConnected => Ok(()),
             result => result,
@@ -1390,7 +1390,7 @@ impl TcpStream {
         self.io.poll_write(cx, buf)
     }
 
-    pub fn poll_write_vectored_priv(
+    pub(super) fn poll_write_vectored_priv(
         &self,
         cx: &mut Context<'_>,
         bufs: &[io::IoSlice<'_>],
