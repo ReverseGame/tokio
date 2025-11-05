@@ -1390,7 +1390,7 @@ impl TcpStream {
         self.io.poll_write(cx, buf)
     }
 
-    pub(super) fn poll_write_vectored_priv(
+    pub fn poll_write_vectored_priv(
         &self,
         cx: &mut Context<'_>,
         bufs: &[io::IoSlice<'_>],
